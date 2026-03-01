@@ -1,6 +1,7 @@
 # Template criado no Unity 6.3 para a aula de Sistemas Multimidia
 
 Criador: Carlos W. Gama
+
 Licença: MIT
 
 Recursos no jogo:
