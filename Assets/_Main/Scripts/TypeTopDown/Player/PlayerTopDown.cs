@@ -1,33 +1,23 @@
-using System.Collections;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using UnityEngine.AI;
-using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
-/// <summary>
-/// Classe básica para movimentação do player no jogo
-/// </summary>
-[RequireComponent(typeof(Rigidbody2D))] //Adiciona automaticamente o componente se não tiver
-[RequireComponent(typeof(Animator))] //Adiciona automaticamente o componente se não tiver
-public class PlayerTopDown : MonoBehaviour, IDamage {
+public class PlayerTopDown : CharacterTopDown, IDamage {
     
-    [Header("Atributos")]
-    public int HP;
-    public float speed;
-    private Rigidbody2D rb;
-    private Animator animator;
+ 
+    public Slider hpBar;
+
     private PlayerInputs inputs;
     private Canvas canvas;
-
-    private bool canMove = true;
-
 
     void Awake() {
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = 0;
         animator = GetComponent<Animator>();
+        
         inputs = new PlayerInputs();
         canvas = GetComponentInChildren<Canvas>();
+        hpBar = GetComponentInChildren<Slider>();
+        hpBar.value = hpBar.maxValue = HP;
     }
 
     void OnEnable() => inputs.Enable();
@@ -46,34 +36,11 @@ public class PlayerTopDown : MonoBehaviour, IDamage {
 
 
     //Ataca
-    private void Attack() {
+    protected void Attack() {
         if (inputs.Player.Attack.WasPressedThisFrame()) {
             animator.SetTrigger("Attack");    
             StartCoroutine(CanMove(0.7f));
         }
-    }
-
-    //Sofre dano
-    public void Hit( int damage, Vector3 enemyPosition) {
-
-        //CAUSA DANO
-        HP -= damage;
-        if (HP < 0)
-            HP = 0;
-        //EMPURA
-        var push = (transform.position - enemyPosition).normalized; //Empura na direção oposta do inimigo
-        push.z = 0;
-        rb.AddForce(push *30f);
-
-        //Animação
-        animator.SetInteger("HP", HP);
-        animator.SetTrigger("Hit");
-        
-        if (HP == 0) //Se acabou a vida desabilita o script do player
-            enabled = false;
-
-        StartCoroutine(CanMove(1f));
-
     }
 
     //Movimenta o personagem
@@ -98,18 +65,10 @@ public class PlayerTopDown : MonoBehaviour, IDamage {
         }
     }
 
-    IEnumerator CanMove(float delay) {
-        //Bloquea o movimento
-        canMove = false; 
-        rb.linearVelocity = Vector2.zero;
-        animator.SetBool("Walking", false);
-
-        //Libera
-        yield return new WaitForSeconds(delay);
-        canMove = true;
+    public override void Hit(int damage, Vector3 enemyPosition) {
+        base.Hit(damage, enemyPosition);
+        hpBar.value = HP;       
     }
 
-     IEnumerator CanBeHitted(float delay) {
-        
-    }
+    
 }

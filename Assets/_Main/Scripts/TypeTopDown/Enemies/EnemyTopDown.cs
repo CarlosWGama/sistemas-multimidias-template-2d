@@ -3,40 +3,19 @@ using UnityEngine;
 
 // [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Animator))]
-public class EnemyTopDown : MonoBehaviour, IDamage {
-
-    [Header("Atributos")]
-    public float speed = 2f;
-    public int HP = 2;
+public class EnemyTopDown : CharacterTopDown, IDamage {
     
     [Header("Debug")]
-
     public GameObject target;
-    private Rigidbody2D rb;
-    private Animator animator;
 
-    private bool canMove = true;
-
-
-    void Awake() {
-        rb = GetComponent<Rigidbody2D>();
-        rb.gravityScale = 0f;
-        animator = GetComponent<Animator>();
-    }
 
     void Start() {
         target = GameObject.FindGameObjectWithTag("Player");
         InvokeRepeating("UpdateTarget", 0f, 3000f); //A cada 3 segundos repete a função.
     }
 
-
-    void Update() {
-        
-    }
-
     void FixedUpdate() {
-        Move();
-    
+        Move();    
     }
 
     //Busca o alvo mais próximo
@@ -78,41 +57,5 @@ public class EnemyTopDown : MonoBehaviour, IDamage {
         }
     }
 
-    //Sofre dano
-    public void Hit(int damage, Vector3 playerPosition) {
-        //CAUSA DANO
-        HP -= damage;
-        if (HP < 0)
-            HP = 0;
-        //EMPURA
-        var push = (transform.position - playerPosition).normalized; //Empura na direção oposta do inimigo
-        push.z = 0;
-        
-        rb.AddForce(push * 20f);
-
-
-        //Animação
-        animator.SetInteger("HP", HP);
-        animator.SetTrigger("Hit");
-        
-        if (HP == 0) { //Se acabou a vida desabilita o script do player
-            Destroy(gameObject, 3f);
-            rb.bodyType = RigidbodyType2D.Static; //Não pode se mvoer
-            enabled = false;
-            return ;
-        }
     
-        StartCoroutine(CanMove(1.5f));
-    }
-
-    IEnumerator CanMove(float delay) {
-        //Bloquea o movimento
-        canMove = false; 
-        rb.linearVelocity = Vector2.zero;
-        animator.SetBool("Walking", false);
-
-        //Libera
-        yield return new WaitForSeconds(delay);
-        canMove = true;
-    }
 }
