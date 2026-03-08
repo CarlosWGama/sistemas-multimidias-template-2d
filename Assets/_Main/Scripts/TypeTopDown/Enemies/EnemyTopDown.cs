@@ -3,25 +3,24 @@ using UnityEngine;
 
 // [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Animator))]
-public class EnemyTopDown : CharacterTopDown, IDamage {
+public class EnemyTopDown : CharacterTopDown {
     
     [Header("Debug")]
     public GameObject target;
-
-
+    // --------------------------------
     void Start() {
         target = GameObject.FindGameObjectWithTag("Player");
-        InvokeRepeating("UpdateTarget", 0f, 3000f); //A cada 3 segundos repete a função.
+        InvokeRepeating("UpdateTarget", 0f, 3f); //A cada 3 segundos repete a função.
     }
-
+    // --------------------------------
     void FixedUpdate() {
         Move();    
     }
-
+    // --------------------------------
     //Busca o alvo mais próximo
     private void UpdateTarget() {
             var targets = GameObject.FindGameObjectsWithTag("Player");
-            
+            Debug.Log(targets.Length);
             float distanceTarget = Vector3.Distance(transform.position, target.transform.position);
             
             //Verifica se tem algum alvo mais próximo
@@ -33,7 +32,7 @@ public class EnemyTopDown : CharacterTopDown, IDamage {
                 }
             }
     }
-
+    // --------------------------------
     //Movimenta o inimigo
     private void Move() {
         if (!canMove) return;   
@@ -49,8 +48,9 @@ public class EnemyTopDown : CharacterTopDown, IDamage {
         if (target.transform.position.x > transform.position.x) transform.localScale = Vector3.one;
         else if (target.transform.position.x < transform.position.x) transform.localScale = new Vector3(-1, 1, 1);
     }
-
+    // --------------------------------
     void OnCollisionEnter2D(Collision2D collision) {
+        if (HP <= 0) return;
         if (collision.gameObject.tag == "Player") {
             animator.SetTrigger("Attack");
             StartCoroutine(CanMove(2f));

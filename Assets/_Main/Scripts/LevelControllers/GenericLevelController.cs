@@ -11,12 +11,12 @@ public class GenericLevelController : MonoBehaviour {
     [Header("Áudios")]
     public AudioResource BGM;
     public AudioResource BGS;
-
-    void Start() {
+    // ---------------------------------------
+    protected virtual void Start() {
         AudioController.Instance.PlayBGM(BGM);
         AudioController.Instance.PlayBGS(BGS);
     }
-
+    // ---------------------------------------
     /*
         FUNCIONALIDADES DOS BOTÕES DO MENU
     */ 

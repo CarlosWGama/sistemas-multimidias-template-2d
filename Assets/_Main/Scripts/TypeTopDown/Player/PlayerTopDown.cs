@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerTopDown : CharacterTopDown, IDamage {
+public class PlayerTopDown : CharacterTopDown {
     
  
     public Slider hpBar;
@@ -68,6 +68,10 @@ public class PlayerTopDown : CharacterTopDown, IDamage {
     public override void Hit(int damage, Vector3 enemyPosition) {
         base.Hit(damage, enemyPosition);
         hpBar.value = HP;       
+
+        if (HP < 0) {
+            //Game Over
+        }
     }
 
     

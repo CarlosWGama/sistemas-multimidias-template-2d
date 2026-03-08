@@ -12,21 +12,20 @@ public abstract class CharacterTopDown : MonoBehaviour {
     [Header("Atributos")]
     public int HP;
     public float speed;
-
     public bool destroyOnDead = true;
-
+    // --------------------------------
     protected bool canMove = true;
     protected bool canBeHitted = true;
     protected Rigidbody2D rb;
     protected Animator animator;
     
-    
+    // --------------------------------
     void Awake() {
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = 0f;
         animator = GetComponent<Animator>();
     }
-
+    // --------------------------------
     public virtual void Hit(int damage, Vector3 enemyPosition) {
         if (!canBeHitted || HP == 0) return;
         //CAUSA DANO
@@ -55,7 +54,7 @@ public abstract class CharacterTopDown : MonoBehaviour {
         StartCoroutine(CanBeHitted(1.5f));
         StartCoroutine(CanMove(1.5f));
     }
-
+    // --------------------------------
     //Limita o movimento do personagens por alguns segunso
     protected IEnumerator CanMove(float delay) {
         //Bloquea o movimento
@@ -67,7 +66,7 @@ public abstract class CharacterTopDown : MonoBehaviour {
         yield return new WaitForSeconds(delay);
         canMove = true;
     }
-
+    // --------------------------------
     //Torna o personagem invencível por alguns segundos
     protected IEnumerator CanBeHitted(float delay) {
         canBeHitted = false;   

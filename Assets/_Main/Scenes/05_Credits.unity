@@ -433,7 +433,7 @@ MonoBehaviour:
   m_text: "Template de jogo criado por:\nCarlos W. Gama\n\nArtes: \n- Open Game Arts
     (https://opengameart.org/content/16x16-indoor-rpg-tileset)\n- Itch io (https://ansimuz.itch.io/gothicvania-patreon-collection)\n-
     Gemini\n- Personagens criado no Character tool V7\n\n\xC1udios:\n- Letra da m\xFAsica
-    Gemini\n- Vozes por ElevenLabs\n- Musica tema no Suno\n- OpenGameArts"
+    Gemini\n- Vozes por ElevenLabs\n- Musica tema no Suno\n- BGM (Metaruka https://opengameart.org/content/game-game)"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
