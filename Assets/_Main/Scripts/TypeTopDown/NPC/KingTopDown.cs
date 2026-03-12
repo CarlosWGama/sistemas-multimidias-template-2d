@@ -43,11 +43,13 @@ public class KingTopDown : CharacterTopDown {
         else rb.linearVelocity = Vector2.zero;
     }
 
-    public virtual void Hit(int damage, Vector3 enemyPosition)  {
+    public virtual bool Hit(int damage, Vector3 enemyPosition)  {
         base.Hit(damage, enemyPosition);
-
-        if (HP < 0) {
+        var hitted = base.Hit(damage, enemyPosition);
+        if (hitted && HP <= 0) {
             //Game Over
+            TopDownLevelController.Instance.GameOver();
         }
+        return hitted;
     }
 }

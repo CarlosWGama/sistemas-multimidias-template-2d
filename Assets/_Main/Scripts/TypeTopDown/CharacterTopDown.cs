@@ -26,8 +26,8 @@ public abstract class CharacterTopDown : MonoBehaviour {
         animator = GetComponent<Animator>();
     }
     // --------------------------------
-    public virtual void Hit(int damage, Vector3 enemyPosition) {
-        if (!canBeHitted || HP == 0) return;
+    public virtual bool Hit(int damage, Vector3 enemyPosition) {
+        if (!canBeHitted || HP == 0) return false;       
         //CAUSA DANO
         HP -= damage;
         if (HP < 0)
@@ -49,10 +49,11 @@ public abstract class CharacterTopDown : MonoBehaviour {
 
             rb.bodyType = RigidbodyType2D.Static; //Não pode se mvoer
             enabled = false;
-            return ;
+            return true;
         }
         StartCoroutine(CanBeHitted(1.5f));
         StartCoroutine(CanMove(1.5f));
+        return true;
     }
     // --------------------------------
     //Limita o movimento do personagens por alguns segunso
@@ -73,6 +74,13 @@ public abstract class CharacterTopDown : MonoBehaviour {
         yield return new WaitForSeconds(delay);
         canBeHitted = true;
 
+    }
+    // -------------------------------
+    // Faz animação de vitória e completa o jogo. 
+    public void Win() {
+        animator.SetTrigger("Win");
+        enabled = false;
+        rb.linearVelocity = Vector2.zero;
     }
     
 }

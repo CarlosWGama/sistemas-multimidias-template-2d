@@ -22,8 +22,12 @@ public class RespawnTopDown : MonoBehaviour {
         //Verica quando deve respawnar um inimigo
         delay -= Time.deltaTime;
         if (delay <= 0) {
-            SpawnEnemy();
-            delay = Random.Range(delayMin, delayMax);
+            if (TopDownLevelController.Instance.CanSpawnEnemy()) {
+                SpawnEnemy();
+                delay = Random.Range(delayMin, delayMax);
+            } else {
+                enabled = false;
+            }
         }
     }
     

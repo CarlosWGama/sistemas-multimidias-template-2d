@@ -20,7 +20,6 @@ public class EnemyTopDown : CharacterTopDown {
     //Busca o alvo mais próximo
     private void UpdateTarget() {
             var targets = GameObject.FindGameObjectsWithTag("Player");
-            Debug.Log(targets.Length);
             float distanceTarget = Vector3.Distance(transform.position, target.transform.position);
             
             //Verifica se tem algum alvo mais próximo
@@ -48,6 +47,14 @@ public class EnemyTopDown : CharacterTopDown {
         if (target.transform.position.x > transform.position.x) transform.localScale = Vector3.one;
         else if (target.transform.position.x < transform.position.x) transform.localScale = new Vector3(-1, 1, 1);
     }
+    // ----------------------------------
+    public override bool Hit(int damage, Vector3 enemyPosition) {
+        var hitted = base.Hit(damage, enemyPosition);
+        if (hitted && HP == 0) {
+            TopDownLevelController.Instance.WinLevel();
+        }
+        return hitted;
+    }
     // --------------------------------
     void OnCollisionEnter2D(Collision2D collision) {
         if (HP <= 0) return;
@@ -56,6 +63,7 @@ public class EnemyTopDown : CharacterTopDown {
             StartCoroutine(CanMove(2f));
         }
     }
+
 
     
 }

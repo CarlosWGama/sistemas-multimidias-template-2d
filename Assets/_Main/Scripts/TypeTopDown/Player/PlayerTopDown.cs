@@ -65,13 +65,15 @@ public class PlayerTopDown : CharacterTopDown {
         }
     }
 
-    public override void Hit(int damage, Vector3 enemyPosition) {
-        base.Hit(damage, enemyPosition);
+    public override bool Hit(int damage, Vector3 enemyPosition) {
+        var hitted = base.Hit(damage, enemyPosition);
         hpBar.value = HP;       
 
-        if (HP < 0) {
+        if (hitted && HP <= 0) {
             //Game Over
+            TopDownLevelController.Instance.GameOver();
         }
+        return hitted;
     }
 
     

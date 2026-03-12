@@ -708,7 +708,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerTopDown
   HP: 3
   speed: 2
-  destroyOnDead: 1
+  destroyOnDead: 0
   hpBar: {fileID: 0}
 --- !u!70 &8440506966859107814
 CapsuleCollider2D:
