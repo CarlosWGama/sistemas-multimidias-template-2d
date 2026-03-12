@@ -14,8 +14,6 @@ public class TopDownLevelController : GenericLevelController {
     public GameObject[] prefabsCharacters;
     private PlayerTopDown player;
 
-    public int defaultCharacter = 0;
-
     public Vector3 initialPosition = Vector3.zero;
     // ---------------------------------------
     [Header("UI")]
@@ -39,7 +37,11 @@ public class TopDownLevelController : GenericLevelController {
     }
     // ---------------------------------------
     private void SpawnPlayer() {
-        player = Instantiate(prefabsCharacters[defaultCharacter], initialPosition, Quaternion.identity).GetComponent<PlayerTopDown>();
+        int typeCharacter = 0;
+        if (PlayerPrefs.HasKey("TypeCharacter"))
+            typeCharacter = PlayerPrefs.GetInt("TypeCharacter");
+
+        player = Instantiate(prefabsCharacters[typeCharacter], initialPosition, Quaternion.identity).GetComponent<PlayerTopDown>();
         FindAnyObjectByType<CameraFollow>().target = player.gameObject;
     }
     // ---------------------------------------
