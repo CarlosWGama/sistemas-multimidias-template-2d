@@ -36,11 +36,13 @@ public class PlayerTopDown : CharacterTopDown {
 
 
     //Ataca
-    protected void Attack() {
+    protected virtual bool Attack() {
         if (inputs.Player.Attack.WasPressedThisFrame()) {
             animator.SetTrigger("Attack");    
             StartCoroutine(CanMove(0.7f));
+            return true;
         }
+        return false;
     }
 
     //Movimenta o personagem

@@ -2338,6 +2338,7 @@ MonoBehaviour:
   BGM: {fileID: 8300000, guid: 1b2f77573216fca4cbdce899e6cc8901, type: 3}
   BGS: {fileID: 0}
   prefabsCharacters:
+  - {fileID: 4577268699063764597, guid: 8807de43fe7bee1498fbfcdb7ea564fe, type: 3}
   - {fileID: 8001916944061306630, guid: cdfefb810d9828943ac09ddd07f8645c, type: 3}
   defaultCharacter: 0
   initialPosition: {x: 0, y: 0, z: 0}

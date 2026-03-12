@@ -3,13 +3,11 @@ using UnityEngine;
 public class KingTopDown : CharacterTopDown {
     
     private bool moving = false;
-
     private Vector2 direction = new Vector2(0, -1);
-
     private float timeWalking = 2f;
     private float timeIdle = 3f;
 
-
+    // ---------------------------------------------
     void Update() {
         
 
@@ -33,18 +31,17 @@ public class KingTopDown : CharacterTopDown {
         moving = timeIdle <= 0;
         animator.SetBool("Walking", moving);
     }
-
+    // ---------------------------------------------
     void FixedUpdate() {
         Move();
     }
-
+    // ---------------------------------------------
     void Move() {
         if (moving && canMove) rb.linearVelocity = direction * speed;
         else rb.linearVelocity = Vector2.zero;
     }
-
-    public virtual bool Hit(int damage, Vector3 enemyPosition)  {
-        base.Hit(damage, enemyPosition);
+    // ---------------------------------------------
+    public override bool Hit(int damage, Vector3 enemyPosition)  {
         var hitted = base.Hit(damage, enemyPosition);
         if (hitted && HP <= 0) {
             //Game Over

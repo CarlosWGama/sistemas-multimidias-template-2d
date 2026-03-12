@@ -6,14 +6,18 @@ using UnityEngine;
 public class AttackDamage : MonoBehaviour {
     
     [Header("Info")]
+    public TypeLevel typeLevel = TypeLevel.TOP_DOWN;
     public int damage;
     public string targetTag = "Player"; //Determina se o dano é para ser causado no Player ou no inimigo de acordo com a tag
-    public bool enemyAttack = true;
     public bool destroyOnHit = false;
     // ---------------------------------------
     void OnTriggerEnter2D(Collider2D collision) {
         if (collision.tag == targetTag) {
-            collision.GetComponent<CharacterTopDown>().Hit(damage, transform.position);
+            if (typeLevel == TypeLevel.TOP_DOWN)
+                collision.GetComponent<CharacterTopDown>().Hit(damage, transform.position);
+
+            if (destroyOnHit)
+                Destroy(gameObject);
         }
     }
 }
