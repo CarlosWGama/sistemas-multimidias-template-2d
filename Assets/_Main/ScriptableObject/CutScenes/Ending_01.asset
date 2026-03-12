@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c189fd138915084b88fbaf0781894b0, type: 3}
+  m_Name: Ending_01
+  m_EditorClassIdentifier: Assembly-CSharp::CutSceneScriptableObject
+  image: {fileID: 4554458017080640300, guid: 225454bd089a2f9488001c8823a47c81, type: 3}
+  Text: "E essa foi a hist\xF3ria de como a Amazona Beatrix e o Elfo Blank lutaram
+    contra hordas de goblins"
